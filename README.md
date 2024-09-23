@@ -1,66 +1,133 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+Loan EMI Processing System
+Project Overview
+This Laravel project is an EMI Processing System that allows you to manage and calculate loan EMIs for clients. The system follows the repository and service pattern and includes the following features:
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Loan Details Management: Create, display, and manage loan details including client ID, number of payments, first and last payment dates, and the total loan amount.
+EMI Processing: Dynamically calculates and stores EMI payments per client based on the loan amount and number of payments.
+EMI Display: Show the EMI breakdown per client in an accordion-style UI for better readability, only displaying months where a payment was made.
+User Authentication: A login system that uses a username and password for authentication.
+Database Integration: Loan and EMI data are stored and processed dynamically in the database using migrations and seeds.
+Features
+Dynamic EMI Table Generation: The system dynamically creates an emi_details table that calculates EMI based on client loan details.
+Adjustable EMI Payments: The last EMI payment is adjusted to ensure the total matches the loan amount.
+Clean UI with Bootstrap: EMI details are displayed in an accordion format for easy navigation.
+Authentication System: Simple user login using username and password.
+Database Seeding: Sample loan and user data are pre-seeded for quick setup.
+Prerequisites
+Before setting up the project, make sure you have the following installed:
 
-## About Laravel
+PHP >= 8.0
+Composer
+MySQL (or any supported database)
+Node.js and NPM (for Laravel Mix)
+A web server (like Apache or Nginx)
+Setup Instructions
+1. Clone the repository
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+git clone https://github.com/piyushjaiswal7668/emi-processing.git
+cd emi-processing
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+2. Install dependencies
+Run the following commands to install the required PHP and Node.js dependencies:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+composer install
+npm install
+npm run dev
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+3. Configure environment variables
+Rename the .env.example file to .env and set your environment variables (such as database credentials) for the project:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+cp .env.example .env
+Generate the application key:
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+php artisan key:generate
+Edit the .env file to configure your database:
 
-### Premium Partners
+makefile
+Copy code
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=your_database_name
+DB_USERNAME=your_database_user
+DB_PASSWORD=your_database_password
+4. Run migrations and seed the database
+Run the following command to create the necessary tables and seed the database with sample loan and user data:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
 
-## Contributing
+php artisan migrate --seed
+This will create two main tables:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+loan_details: Contains loan information for each client.
+users: Contains user authentication data (username: developer, password: Test@Password123#).
+5. Serve the application
+Start the local development server:
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+php artisan serve
+The project will be available at http://localhost:8000.
 
-## Security Vulnerabilities
+Usage
+1. Login
+Navigate to the login page at http://localhost:8000/login.
+Use the pre-seeded credentials:
+Username: developer
+Password: Test@Password123#
+2. Loan Details Page
+After logging in, you will be redirected to the Loan Details page. Here you can view the list of clients and their respective loan details, including:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Client ID
+Number of Payments
+First Payment Date
+Last Payment Date
+Total Loan Amount
+3. EMI Processing
+To process the EMI data:
 
-## License
+Click the Process Data button, which dynamically creates the emi_details table.
+The EMI breakdown will be calculated, and each client's EMI will be adjusted to ensure the total matches the loan amount.
+You can view the EMI schedule for each client by expanding their corresponding section in the accordion.
+4. EMI Details Accordion
+The EMI details are displayed in a Bootstrap accordion:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Each Client ID is an accordion item that expands to show the client's EMI breakdown.
+Months with no EMI payments are hidden, so you only see months where payments were made.
+Technical Details
+Project Structure
+Models:
+LoanDetail: Handles loan details.
+EMIDetail: Handles EMI calculations (generated dynamically).
+Controllers:
+LoanDetailsController: Manages loan data, EMI processing, and displaying the results.
+Views:
+loan-details/index.blade.php: Displays the loan and EMI data in an accordion-style interface.
+EMI Calculation Logic
+The EMI is calculated as:
+
+javascript
+Copy code
+EMI = Loan Amount / Number of Payments
+The last EMI is adjusted to account for rounding issues to ensure the sum of all EMIs matches the total loan amount.
+
+Database Schema
+loan_details: Stores loan data, including the client ID, number of payments, first and last payment dates, and loan amount.
+emi_details: This table is dynamically created to store EMI payment breakdowns for each client.
+Screenshots
+Loan Details Page
+
+EMI Details Accordion
+
+Future Enhancements
+Add functionality to edit loan details.
+Implement user roles and permissions.
+Integrate with a real-time payment gateway for tracking actual EMI payments.
+Add pagination and sorting for large datasets.
+License
+This project is open-source and licensed under the MIT License.
+
+Credits
+Developer: Piyush Jaiswal 
+Special thanks to Bootstrap for the UI components.
